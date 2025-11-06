@@ -10,6 +10,13 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
+
+ /**
+  * @method bool hasRole(string|array $roles, ?string $guard = null)
+  * @method self assignRole(...$roles)
+  * @method bool hasAnyRole(...$roles)
+  */
+
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasRoles;
 
