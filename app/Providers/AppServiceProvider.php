@@ -3,6 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Auth\Events\Login;
+use Illuminate\Auth\Events\Logout;
+use Illuminate\Support\Facades\Event;
+use Spatie\Activitylog\Models\Activity;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +23,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
-    }
+    Event::listen(Login::class, function ($event) {
+        activity()
+            ->causedBy($event->user)
+            ->event('login')
+            ->log('User login');
+    });
+
+    Event::listen(Logout::class, function ($event) {
+        activity()
+            ->causedBy($event->user)
+            ->event('logout')
+            ->log('User logout');
+    });
+}
 }
