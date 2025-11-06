@@ -33,7 +33,7 @@ class CategoryResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('nama_kategori')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('kode_kategori')->searchable()->sortable(),
-                Tables\Columns\TextColumn::make('created_at')->dateTime('d M Y H:i')->label('Dibuat'),
+                Tables\Columns\TextColumn::make('created_at')->dateTime('d M Y')->label('Dibuat'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make()

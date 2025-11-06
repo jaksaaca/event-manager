@@ -7,6 +7,8 @@ use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Logout;
 use Illuminate\Support\Facades\Event;
 use Spatie\Activitylog\Models\Activity;
+use Illuminate\Support\Facades\DB;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -36,5 +38,8 @@ class AppServiceProvider extends ServiceProvider
             ->event('logout')
             ->log('User logout');
     });
+
+    DB::statement("SET time_zone = '+07:00'");
+
 }
 }

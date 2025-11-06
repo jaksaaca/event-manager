@@ -19,6 +19,11 @@ class EditUser extends EditRecord
 
     protected function afterSave(): void
 {
-    activity()->performedOn($this->record)->event('update')->log('Update event');
+    activity()->performedOn($this->record)->event('update')->log('Update user');
 }
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

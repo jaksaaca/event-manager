@@ -27,6 +27,7 @@ class EventResource extends Resource
                 ->relationship('category', 'nama_kategori')
                 ->required()
                 ->label('Kategori')
+                ->preload()
                 ->searchable(),
             Forms\Components\Textarea::make('deskripsi')->rows(5)->label('Deskripsi'),
             Forms\Components\DateTimePicker::make('tanggal_event')->required()->label('Tanggal Event')->native(false),
@@ -38,7 +39,7 @@ class EventResource extends Resource
         return $table->columns([
             Tables\Columns\TextColumn::make('nama_event')->searchable()->sortable(),
             Tables\Columns\TextColumn::make('category.nama_kategori')->label('Kategori')->sortable(),
-            Tables\Columns\TextColumn::make('tanggal_event')->dateTime('d M Y H:i')->label('Tanggal'),
+            Tables\Columns\TextColumn::make('tanggal_event')->dateTime('d M Y')->label('Tanggal'),
         ])
         ->actions([
             Tables\Actions\EditAction::make()

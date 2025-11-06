@@ -19,6 +19,7 @@ class AuditLogResource extends Resource
     protected static ?string $navigationIcon  = 'heroicon-o-clipboard-document-list';
     protected static ?string $navigationLabel = 'Audit Log';
 
+    // Batasi akses: Admin & Super Admin (tanpa hasRole)
     public static function shouldRegisterNavigation(): bool
     {
         return static::userHasAnyRole(['Super Admin', 'Admin']);
@@ -73,6 +74,7 @@ class AuditLogResource extends Resource
                         $data['value'] ? $query->where('event', $data['value']) : $query
                     ),
 
+                // ❗ morphTo: filter user via causer_type + causer_id
                 SelectFilter::make('user')
                     ->label('Filter User')
                     ->options(\App\Models\User::orderBy('email')->pluck('email', 'id')->toArray())
@@ -94,6 +96,7 @@ class AuditLogResource extends Resource
         ];
     }
 
+    // Cek role via tabel DB (tanpa hasRole & tanpa getKey)
     private static function userHasAnyRole(array $roleNames): bool
     {
         $userId = Auth::id();

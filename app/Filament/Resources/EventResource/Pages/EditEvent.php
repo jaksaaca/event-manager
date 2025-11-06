@@ -22,4 +22,9 @@ class EditEvent extends EditRecord
     activity()->performedOn($this->record)->event('update')->log('Update event');
 }
 
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
+
 }

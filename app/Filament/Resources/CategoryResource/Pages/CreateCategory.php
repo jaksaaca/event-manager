@@ -14,4 +14,8 @@ class CreateCategory extends CreateRecord
 {
     activity()->performedOn($this->record)->event('create')->log('Tambah kategori');
 }
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

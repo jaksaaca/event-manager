@@ -14,4 +14,9 @@ class CreateUser extends CreateRecord
 {
     activity()->performedOn($this->record)->event('create')->log('Tambah user');
 }
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

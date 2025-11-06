@@ -14,4 +14,9 @@ class CreateEvent extends CreateRecord
 {
     activity()->performedOn($this->record)->event('create')->log('Tambah event');
 }
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

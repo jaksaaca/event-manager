@@ -22,4 +22,9 @@ class EditCategory extends EditRecord
     activity()->performedOn($this->record)->event('update')->log('Update kategori');
 }
 
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
+
 }
