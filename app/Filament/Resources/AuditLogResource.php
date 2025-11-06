@@ -19,7 +19,6 @@ class AuditLogResource extends Resource
     protected static ?string $navigationIcon  = 'heroicon-o-clipboard-document-list';
     protected static ?string $navigationLabel = 'Audit Log';
 
-    // Batasi akses: Admin & Super Admin (tanpa hasRole)
     public static function shouldRegisterNavigation(): bool
     {
         return static::userHasAnyRole(['Super Admin', 'Admin']);

@@ -21,7 +21,7 @@ class UserResource extends Resource
 {
     protected static ?string $model = \App\Models\User::class;
     protected static ?string $navigationIcon = 'heroicon-o-users';
-    protected static ?string $navigationLabel = 'Akun';
+    protected static ?string $navigationLabel = 'User';
 
     /** Sidebar hanya tampil untuk Super Admin */
     public static function shouldRegisterNavigation(): bool
@@ -71,10 +71,9 @@ class UserResource extends Resource
                 ->dehydrateStateUsing(fn ($state) => filled($state) ? Hash::make($state) : null)
                 ->dehydrated(fn ($state) => filled($state)),
 
-            // Pilih role via relasi Spatie (paling aman & simpel)
             Select::make('roles')
                 ->label('Role')
-                ->relationship('roles', 'name') // auto-sync pivot
+                ->relationship('roles', 'name')
                 ->preload()
                 ->searchable()
                 ->required()
@@ -89,7 +88,7 @@ class UserResource extends Resource
                 TextColumn::make('name')->label('Nama')->searchable(),
                 TextColumn::make('email')->searchable(),
                 TextColumn::make('roles.name')->label('Role')->badge(),
-                TextColumn::make('created_at')->dateTime('d M Y H:i')->label('Dibuat'),
+                TextColumn::make('created_at')->dateTime('d M Y')->label('Dibuat'),
             ])
             ->filters([
                 SelectFilter::make('role')
