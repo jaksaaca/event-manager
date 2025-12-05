@@ -59,7 +59,6 @@ class AuditLogResource extends Resource
                     ->sortable(),
             ])
             ->filters([
-                // event ada kolomnya, aman
                 SelectFilter::make('event')
                     ->label('Filter Aksi')
                     ->options([
@@ -73,7 +72,6 @@ class AuditLogResource extends Resource
                         $data['value'] ? $query->where('event', $data['value']) : $query
                     ),
 
-                // ❗ morphTo: filter user via causer_type + causer_id
                 SelectFilter::make('user')
                     ->label('Filter User')
                     ->options(\App\Models\User::orderBy('email')->pluck('email', 'id')->toArray())
@@ -95,7 +93,6 @@ class AuditLogResource extends Resource
         ];
     }
 
-    // Cek role via tabel DB (tanpa hasRole & tanpa getKey)
     private static function userHasAnyRole(array $roleNames): bool
     {
         $userId = Auth::id();

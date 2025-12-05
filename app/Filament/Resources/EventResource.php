@@ -12,6 +12,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Filters\SelectFilter;
+
 
 class EventResource extends Resource
 {
@@ -46,6 +48,14 @@ class EventResource extends Resource
                 ->after(fn (Event $record) => activity()->performedOn($record)->event('update')->log('Update event')),
             Tables\Actions\DeleteAction::make()
                 ->after(fn (Event $record) => activity()->performedOn($record)->event('delete')->log('Hapus event')),
+        ])
+                ->filters([
+            SelectFilter::make('category_id')
+                ->label('Kategori')
+                ->relationship('category', 'nama_kategori')
+                ->searchable()   
+                ->preload()    
+                ->multiple(),  
         ])
         ->bulkActions([Tables\Actions\DeleteBulkAction::make()]);
     }
